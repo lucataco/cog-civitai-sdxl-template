@@ -1,0 +1,19 @@
+# Configuration for Cog
+build:
+  gpu: true
+  cuda: "11.8"
+  python_version: "3.11"
+  system_packages:
+    - "libgl1-mesa-glx"
+    - "libsm6"
+    - "libxext6"
+  python_packages:
+    - "torch==2.1.0"
+    - "torchvision"
+    - "diffusers==0.23.0"
+    - "transformers==4.35.0"
+    - "accelerate==0.24.0"
+    - "invisible-watermark==0.2.0"
+
+# predict.py defines how predictions are run on your model
+predict: "predict.py:Predictor"

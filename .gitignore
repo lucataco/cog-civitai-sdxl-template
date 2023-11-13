@@ -1,0 +1,7 @@
+__pycache__
+.cog
+feature-extracotr
+model-cache
+safety-cache
+
+model.safetensors

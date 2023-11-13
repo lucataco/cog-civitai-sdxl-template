@@ -1,0 +1,37 @@
+#!/usr/bin/env python
+
+# Before running this script make sure you downloaded the safetensor:
+# wget -O model.safetensors https://civitai.com/api/download/models/...
+import os
+import sys
+import torch
+import urllib
+from diffusers import StableDiffusionXLPipeline, AutoencoderKL
+from diffusers.pipelines.stable_diffusion.safety_checker import (
+    StableDiffusionSafetyChecker,
+)
+
+# append project directory to path so predict.py can be imported
+sys.path.append('.')
+
+from predict import MODEL_NAME, MODEL_CACHE, SAFETY_CACHE
+
+# Make cache folder
+if not os.path.exists(MODEL_CACHE):
+    os.makedirs(MODEL_CACHE)
+
+vae = AutoencoderKL.from_pretrained("madebyollin/sdxl-vae-fp16-fix")
+
+pipe = StableDiffusionXLPipeline.from_single_file(
+  MODEL_NAME,
+  vae=vae,
+  torch_dtype=torch.float16
+)
+pipe.save_pretrained(MODEL_CACHE)
+
+
+safety = StableDiffusionSafetyChecker.from_pretrained(
+    "CompVis/stable-diffusion-safety-checker",
+    torch_dtype=torch.float16,
+)
+safety.save_pretrained(SAFETY_CACHE)
