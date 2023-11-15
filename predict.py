@@ -121,14 +121,14 @@ class Predictor(BasePredictor):
             seed = int.from_bytes(os.urandom(3), "big")
         print(f"Using seed: {seed}")
         generator = torch.Generator("cuda").manual_seed(seed)
+        
+        pipe = self.pipe
+        pipe.scheduler = SCHEDULERS[scheduler].from_config(pipe.scheduler.config)
 
         # toggles watermark for this prediction
         if not apply_watermark:
             watermark_cache = pipe.watermark
             pipe.watermark = None
-
-        pipe = self.pipe
-        pipe.scheduler = SCHEDULERS[scheduler].from_config(pipe.scheduler.config)
         
         sdxl_kwargs = {}
         sdxl_kwargs["width"] = width
