@@ -25,3 +25,9 @@ And finally push to Replicate:
 Example:
 
 ![alt text](output.0.png)
+
+## License
+
+The code in this repository is licensed under the [Apache License 2.0](LICENSE).
+
+The model weights are not covered by this license. This template loads a Civitai SDXL checkpoint of your choice, so the weights follow that checkpoint's own Civitai license, and SDXL itself is under the [CreativeML Open RAIL++-M](https://huggingface.co/stabilityai/stable-diffusion-xl-base-1.0/blob/main/LICENSE.md) license. Check both before use.
